@@ -2,7 +2,7 @@ require("dotenv").config();
 require("express-async-errors");
 const express = require("express");
 const app = express();
-const authMiddleware = require("./middleware/authentication");
+const authenticateUser = require("./middleware/authentication");
 
 // connect DB connection
 
@@ -24,7 +24,7 @@ app.use(express.json());
 //   res.send("jobs api");
 // });
 app.use("/api/v1/auth", authRouter);
-app.use("/api/v1/jobs", authMiddleware, jobsRouter);
+app.use("/api/v1/jobs", authenticateUser, jobsRouter);
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
